@@ -4,3 +4,17 @@
     font-weight: 400;
     font-size: 0.8rem;
 }
+
+.form-control.ng-invalid.ng-touched {
+    border: 1px solid #bd1206;
+}
+
+.button {
+    padding: 0.5rem;
+    background: #042e67;
+    color: #fff;
+}
+
+.button:hover {
+    background: #062757;
+}
