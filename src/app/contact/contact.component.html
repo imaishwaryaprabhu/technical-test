@@ -5,22 +5,48 @@
                 <div class="pb-4">
                     <h2>Contact Us</h2>
                 </div>
-                <form role="form">
+                <form [formGroup]="contactForm"  (ngSubmit)="onSubmit()" role="form">
+                    <div class="alert alert-success mb-3" role="alert" *ngIf="showMessage">
+                        Your message has been sent!
+                    </div>
                     <div class="row">
                         <div class="col-md-6 form-group mt-2">
-                            <input type="text" name="name" class="form-control" placeholder="Your Name"/>
+                            <input type="text" name="name" class="form-control" placeholder="Your Name" 
+                            formControlName="name"/>
+                            <div class="error" *ngIf="name.touched && name.invalid">
+                                <div *ngIf="name.errors.required">*Required</div>
+                                <div *ngIf="name.errors.minlength">Please enter at least {{name.errors.minlength.requiredLength}} characters</div>
+                            </div>
                         </div>
                         <div class="col-md-6 form-group mt-2">
-                            <input type="number" class="form-control" name="phoneNumber" placeholder="Your Phone Number"/>
+                            <input type="number" class="form-control" name="phoneNumber" 
+                            placeholder="Your Phone Number" 
+                            formControlName="phoneNumber"/>
+                            <div class="error" *ngIf="phoneNumber.touched && phoneNumber.invalid">
+                                <div *ngIf="phoneNumber.errors.required">*Required</div>
+                                <div *ngIf="phoneNumber.errors.pattern">Please enter a valid phone number</div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group mt-2">
-                        <input type="email" class="form-control" name="email" placeholder="Your Email"/>
+                        <input type="email" class="form-control" name="email" 
+                        placeholder="Your Email" 
+                        formControlName="email"/>
+                        <div class="error" *ngIf="email.touched && email.invalid">
+                            <div *ngIf="email.errors.required">*Required</div>
+                            <div *ngIf="email.errors.email">Please enter a valid email</div>
+                        </div>
                     </div>
                     <div class="form-group mt-4">
-                        <textarea class="form-control" name="message" rows="8" placeholder="Your Message"></textarea>
+                        <textarea class="form-control" name="message" rows="8" placeholder="Your Message" 
+                        formControlName="message"></textarea>
+                        <div class="error" *ngIf="message.touched && message.invalid">
+                            <div *ngIf="message.errors.required || message.errors.minlength">Please write something for us</div>
+                        </div>
                     </div>
-                    <div class="text-center"><button type="submit" class="btn btn-info">Send Message</button></div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-info" [disabled]="contactForm.invalid">Send Message</button>
+                    </div>
                 </form>
     
             </div>
